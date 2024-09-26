@@ -47,7 +47,7 @@ class GameUnit:
         self.health = self.max_health if not health else health
 
     def __serialize_type(self):
-        from .game_state import STRUCTURE_TYPES, UNIT_TYPE_TO_INDEX, FACTORY
+        from .game_state import STRUCTURE_TYPES, UNIT_TYPE_TO_INDEX, SUPPORT
         type_config = self.config["unitInformation"][UNIT_TYPE_TO_INDEX[self.unit_type]]
         self.stationary = type_config["unitCategory"] == 0
         self.speed = type_config.get("speed", 0)
@@ -57,6 +57,7 @@ class GameUnit:
         self.shieldRange = type_config.get("shieldRange", 0)
         self.max_health = type_config.get("startHealth", 0)
         self.shieldPerUnit = type_config.get("shieldPerUnit", 0)
+        self.shieldBonusPerY = type_config.get("shieldBonusPerY", 0)
         self.cost = [type_config.get("cost1", 0), type_config.get("cost2", 0)]
 
 
@@ -70,6 +71,7 @@ class GameUnit:
         self.shieldRange = type_config.get("shieldRange", self.shieldRange)
         self.max_health = type_config.get("startHealth", self.max_health)
         self.shieldPerUnit = type_config.get("shieldPerUnit", self.shieldPerUnit)
+        self.shieldBonusPerY = type_config.get("shieldBonusPerY", self.shieldBonusPerY)
         self.cost = [type_config.get("cost1", 0) + self.cost[0], type_config.get("cost2", 0) + self.cost[1]]
         self.upgraded = True
 
